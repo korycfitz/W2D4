@@ -73,7 +73,8 @@ end
 # reverse_string("internet")    # => "tenretni"
 # reverse_string("friends")     # => "sdneirf"
 def reverse_string(str)
-    
+    return str if str.length == 0 
+    str[-1] + reverse_string(str[0...-1])
 end
 
 
@@ -105,6 +106,9 @@ end
 #     1-dimensional array: ['some data']
 #     2-dimensional array: [['some data']]
 #     3-dimensional array: [[['some data']]]
-def flatten(data)
-
+def flatten(data) #base case is flatten()
+    return [data] if data.class != Array #0-dimensional array
+    new_arr = []
+    data.each { |subdata| new_arr += flatten(subdata)  }#need to add to array to keep it a 1d array. shoveling will make it nested
+    new_arr                             #can add b/c both are arrays and results in 1d array (flattened array)
 end
