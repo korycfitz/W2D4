@@ -2,14 +2,25 @@
 # of both of the given numbers
 require 'byebug'
 def least_common_multiple(num_1, num_2)
-    # divs_1 = (2..num_1).select { |div| num_1 % div == 0 } 
-    # divs_2 = (2..num_2).select { |div| num_1 % div == 0 } 
-    # divs_1.each do |div|
-    #     if divs_2.include? div
-    #         return num_2 * div
-    #     end
-    # end
+    num1_mults = []
+    num2_mults = []
+    max = num_1 * num_2
+    i = 2
+    while i <= max
+        if (multiples(num_1).include?(i)) && (multiples(num_2).include?(i)) 
+            return i
+        end
+    i += 1
+    end
 end
+
+def multiples(n) #use rel n for max
+    multiples = [n, n+n, n+n+n, n+n+n+n, n+n+n+n+n]
+    multiples
+end
+
+
+
 
 
 # Write a method, most_frequent_bigram, that takes in a string and returns the two adjacent letters that appear the
@@ -74,7 +85,7 @@ class Array
             while !sorted #while not sorted (sorted = false)
             sorted = true   #set flag to true so we can stop eventually after no more swaps
 
-                (0...self.length).each do |i|
+                (0...self.length - 1).each do |i|
                     if self[i] > self[i+1] #if out of order
                         self[i], self[i+1] = self[i+1], self[i] #swap
                         sorted = false #since we made swap set flag to flase
@@ -88,6 +99,7 @@ class Array
         end
 
     end
+
 end
 
 
