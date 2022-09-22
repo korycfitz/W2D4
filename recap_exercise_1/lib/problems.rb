@@ -116,6 +116,20 @@ class String
     # "bootcamp".caesar_cipher(2) #=> "dqqvecor"
     # "zebra".caesar_cipher(4)    #=> "difve"
     def caesar_cipher(num)
-        
+        new_word = ""
+
+        (0...self.length).each do |i|
+
+            num.times do
+                if self[i] != "z"
+                    self[i] = self[i].succ
+                else
+                    self[i] = "a"
+                end
+            end
+
+        end
+
+        return self
     end
 end
