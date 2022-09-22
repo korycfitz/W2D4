@@ -24,10 +24,12 @@ end
 #
 # composite?(9)     # => true
 # composite?(13)    # => false
-def composite?(num)
-
+def composite?(num) #returnn boolean if num has factor besides 1 and self
+    (2...num).each do |factor|
+        return true if num % factor == 0
+    end
+    false
 end
-
 
 # A bigram is a string containing two letters.
 # Write a method, find_bigrams, that takes in a string and an array of bigrams.
@@ -39,7 +41,11 @@ end
 # find_bigrams("the theater is empty", ["cy", "em", "ty", "ea", "oo"])  # => ["em", "ty", "ea"]
 # find_bigrams("to the moon and back", ["ck", "oo", "ha", "at"])        # => ["ck", "oo"]
 def find_bigrams(str, bigrams)
-
+    new_bigrams = []
+    bigrams.each do |bigram|
+        new_bigrams << bigram if str.include? bigram
+    end
+    new_bigrams
 end
 
 class Hash
@@ -57,7 +63,11 @@ class Hash
     # hash_2.my_select { |k, v| k + 1 == v }      # => {10=>11, 5=>6, 7=>8})
     # hash_2.my_select                            # => {4=>4}
     def my_select(&prc)
-
+        if prc.nil?
+            self.select { |k,v| k == v  }
+        else
+            self.select { |k,v| prc.call(k, v) }
+        end
     end
 end
 
@@ -71,9 +81,30 @@ class String
     # "cats".substrings     # => ["c", "ca", "cat", "cats", "a", "at", "ats", "t", "ts", "s"]
     # "cats".substrings(2)  # => ["ca", "at", "ts"]
     def substrings(length = nil)
+        #return array of substrings that have the given length
+        if length.nil?
+            subs = []
+            (0...(self.length)).each do |start_idx|
+                (start_idx...(self.length)).each do |end_idx| 
+                    subs << self[start_idx..end_idx]
+                end
+            end
+            return subs
+        end
+
+        if length
+            subs = []
+            (0...(self.length)).each do |start_idx|
+                (start_idx...(self.length)).each do |end_idx| 
+                    if self[start_idx..end_idx].length == length 
+                        subs << self[start_idx..end_idx]
+                    end
+                end
+            end
+            return subs
+        end
 
     end
-
 
     # Write a method, String#caesar_cipher, that takes in an a number.
     # The method should return a new string where each char of the original string is shifted
@@ -85,6 +116,6 @@ class String
     # "bootcamp".caesar_cipher(2) #=> "dqqvecor"
     # "zebra".caesar_cipher(4)    #=> "difve"
     def caesar_cipher(num)
-
+        
     end
 end
